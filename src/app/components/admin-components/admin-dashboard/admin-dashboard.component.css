@@ -1,0 +1,40 @@
+.parent-element {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.element-5 {
+    width: 8.33%;
+    /* height: 10%; */
+}
+
+.col-lg-1 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-sm-1 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-md-1 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col-xs-1 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.cls-linktext {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cls-linktext:hover {
+    text-decoration: underline;
+}

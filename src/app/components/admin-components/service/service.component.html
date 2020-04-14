@@ -1,0 +1,163 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-6 ">
+                    <h3 class="box-title">Basic Table</h3>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-4">
+                    <nav class="navbar navbar-light text-right">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" #searchfield aria-label="Search" style="width: 250px;">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </nav>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th># <i class="fa  fa-sort" aria-hidden="true"></i></th>
+                            <th>Tên dịch vụ <i class="fa  fa-sort" aria-hidden="true"></i></th>
+                            <th>Giá <i class="fa  fa-sort" aria-hidden="true"></i></th>
+                            <th>Đơn vị <i class="fa  fa-sort" aria-hidden="true"></i></th>
+                            <th>Bảo hành <i class="fa  fa-sort" aria-hidden="true"></i></th>
+                            <th>Nhóm dịch vụ <i class="fa  fa-sort" aria-hidden="true"></i></th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of service | paginate: {
+                            itemsPerPage: 10,
+                            currentPage: _p,
+                            totalItems: _total }; let i=index">
+                            <td data-toggle="modal" data-target="#detailservice" (click)="detailService(item.id)">{{i+1}}</td>
+                            <td data-toggle="modal" data-target="#detailservice" (click)="detailService(item.id)">{{ item.name }}</td>
+                            <td data-toggle="modal" data-target="#detailservice" (click)="detailService(item.id)">{{ item.cost }}</td>
+                            <td data-toggle="modal" data-target="#detailservice" (click)="detailService(item.id)">{{ item.unit }}</td>
+                            <td data-toggle="modal" data-target="#detailservice" (click)="detailService(item.id)">{{ item.guarantee }}</td>
+                            <td data-toggle="modal" data-target="#detailservice" (click)="detailService(item.id)">{{ item.treatment.name }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adduser" [routerLink]="[ './',item.id ]">Tùy chọn</button>
+                                <button type="button" class="btn btn-danger" (click)="onDeleteService(item.id)">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                    </div>
+                    <div class="col-sm-5 text-right">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addservice">Thêm dịch vụ</button>
+                    </div>
+                    <div class="col-sm-1 text-right">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="detailservice" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-2">
+                    <h4 class="modal-title">
+                        <button type="button" class="btn btn-outline-info">Chỉnh sửa</button>
+                    </h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div class="form-group">
+                                <label for="">Tên dịch vụ</label>
+                                <input type="text" class="form-control" #servicename [value]="ServiceDetail.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Giá</label>
+                                <input type="number" class="form-control" #price [value]="ServiceDetail.cost" min="1000" placeholder="Đang tải...">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Đơn vị</label>
+                                <input type="text" class="form-control" #unit [value]="ServiceDetail.unit" disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Bảo hành</label>
+                                <input type="number" class="form-control" #guarantee [value]="ServiceDetail.guarantee" placeholder="Chưa cập nhật" min="0" max="36">
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="">Chức vụ</label>
+                                <br>
+                                <input type="radio" name="position" value="true" #doctor (change)="onChangePosition(doctor.value)" checked> Bác sĩ<br>
+                                <input type="radio" name="position" value="false" #staff (change)="onChangePosition(staff.value)"> Nhân viên<br>
+                            </div> -->
+                            <button type="button" class="btn btn-md btn-primary" (click)="onUpdateService(ServiceDetail.id,servicename.value,price.value,guarantee.value)" data-dismiss="modal">Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addservice" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-2">
+                    <h4 class="modal-title">
+                        <button type="button" class="btn btn-outline-info">Chỉnh sửa</button>
+                    </h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div class="form-group">
+                                <label for="">Tên dịch vụ</label>
+                                <input type="text" class="form-control" #addname>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Giá</label>
+                                <input type="number" class="form-control" #addcost>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Đơn vị</label>
+                                <br>
+                                <input type="radio" name="unit" value="răng" (change)="onChangeUnit($event)" checked>Răng
+                                <input type="radio" name="unit" value="trụ" (change)="onChangeUnit($event)"> Trụ
+                                <input type="radio" name="unit" value="hàm" (change)="onChangeUnit($event)"> Hàm
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Bảo hành</label>
+                                <input type="number" class="form-control" #addguarantee>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Nhóm dịch vụ</label>
+                                <br>
+                                <select #selectgrp>
+                                    <option *ngFor="let item of treatment" value="{{item.id}}">{{ item.name }}</option>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-md btn-primary" (click)="onCreateService(addname.value,addcost.value,addguarantee.value,selectgrp.value)">Thêm dịch vụ</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <h3 class="box-title">Basic Table</h3>
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                    <button type="button" class="btn btn-success" style="width: 20%;" data-toggle="modal" data-target="#addtreatment">Thêm</button>
+                </div>
+
+            </div>
+
+            <div class="row" *ngFor="let item of treatment; let i=index">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <img src="{{item.image}}" alt="" width="100%">
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <h4> {{item.name}} </h4>
+                </div>
+                <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                    <div [innerHTML]="item.detail"></div>
+                </div>
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <button type="button" class="btn btn-primary" [routerLink]="[ './',item.id ]" style="width: 100%;">Chi tiết</button>
+                    <button type="button" class="btn btn-danger" style="width: 100%;" (click)="onDelete(item.id)">Xóa</button>
+                    <!-- <button type="button" class="btn btn-success">Success</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="addtreatment" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-2">
+                    <h4 class="modal-title">
+                        <button type="button" class="btn btn-outline-info">Thêm nhóm dịch vụ</button>
+                    </h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div class="form-group">
+                                <label for="">Nhóm dịch vụ</label>
+                                <input type="text" class="form-control" #addname>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Hình ảnh</label>
+                                <input type="file" class="form-control form-control-line" (change)="onImageSelected($event.target.files)">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Chi tiết</label>
+                                <div>
+                                    <!-- <ckeditor [editor]="Editor" data="Hello" #myEditor></ckeditor> -->
+                                    <ckeditor [editor]="Editor" (change)="onChange($event)"></ckeditor>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn btn-md btn-primary" (click)="onCreate(addname.value)" data-dismiss="modal">Hoàn thành</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

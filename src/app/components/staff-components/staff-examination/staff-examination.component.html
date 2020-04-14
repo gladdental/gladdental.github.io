@@ -1,0 +1,170 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-6 ">
+                    <h3 class="box-title">Basic Table</h3>
+                </div>
+                <div class="col-2">
+                </div>
+                <div class="col-4">
+                    <nav class="navbar navbar-light text-right">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" #searchfield aria-label="Search" style="width: 250px;">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </nav>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <pagination-controls></pagination-controls>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng</th>
+                            <th>Bác sĩ khám</th>
+                            <th>Ghi chú</th>
+                            <th>Lần khám</th>
+                            <th>Thanh toán</th>
+                            <th>Option</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of Examination | paginate: {
+                            itemsPerPage: 10,
+                            currentPage: _p,
+                            totalItems: _total }; let i=index">
+
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{(_p-1)*10+i+1}}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.patient.name }}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.docter.name }}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.note }}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                Lần khám thứ {{ item.visit }}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.is_paid ? 'Đã trả' : 'Chưa' }}</td>
+                            <!-- <td>
+                                <img src="{{item.qrcoce}}" alt="" width="78px" height="78px">
+                            </td> -->
+                            <td>
+
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addexamination">Cập nhật</button>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#adduser">Xóa</button>
+                                <button *ngIf="item.is_paid == false && item.is_done" type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalpayment" (click)="onPayment(item.id)">Thanh toán</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <pagination-controls></pagination-controls>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalpayment" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-2">
+                    <h4 class="modal-title">
+                        <button type="button" class="btn btn-outline-info">Tạm tính</button>
+                    </h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <!-- <div class="form-group">
+                                <label for="">Bác sĩ</label>
+                                <div>
+                                    <select name="" id="" #doctor>
+                                        <option *ngFor="let item of doctors" value="{{item.id}}">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label for="">Chi phí</label>
+                                <input type="text" class="form-control" #cost disabled value="{{involve.cost}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Nợ</label>
+                                <input type="text" class="form-control" #voucher disabled [value]="involve.owe">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Giảm giá</label>
+                                <input type="text" class="form-control" #voucher disabled [value]="involve.voucher ? involve.voucher : 0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Thành tiền</label>
+                                <input type="text" class="form-control" #total disabled [value]="involve.cost+involve.owe+ (involve.voucher ? involve.voucher : 0) ">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Phương thức thanh toán</label>
+                                <div>
+                                    <select name="" id="" #payment>
+                                        <option value="tiền mặt">Tiền mặt</option>
+                                        <option value="thẻ">Thẻ</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Đã nhận</label>
+                                <input type="number" class="form-control" #received>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Đã trả</label>
+                                <input type="number" class="form-control" #paid>
+                            </div>
+
+                            <!-- <div class="form-group" *ngIf="is_reexam == true">
+                                <label class="switch mr-2">
+                                    <input type="checkbox" (change)="onCheck()">
+                                    <span class="slider round"></span>
+                                </label>Tái khám
+                            </div> -->
+
+                            <!-- <div class="form-group" *ngIf="isToggleChecked">
+                                <label for="">Dịch vụ tái khám</label>
+                                <div>
+                                    <select name="" id="" #examresult>
+                                        <option *ngFor="let item of ExamResult" value="{{item.id}}">{{item.id}}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+
+                            <!-- <button type="button" class="btn btn-md btn-primary"
+                                (click)="is_reexam == false ? onCreateExamination(doctor.value, note.value) : onCreateReExamination(doctor.value, note.value,examresult.value)" data-dismiss="modal">Tạo phiếu
+                                khám</button> -->
+                            <button type="button" class="btn btn-md btn-danger" (click)="onPaid(payment.value, received.value, paid.value)" data-dismiss="modal">Thanh toán</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
