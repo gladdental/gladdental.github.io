@@ -1,0 +1,172 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-6 ">
+                    <h3 class="box-title">Đang khám: {{currentPatient.patient_name}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9 col-sm-9 col-md-9 col-xs-9 `">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 parent-element">
+                            <div *ngFor="let item of tooth;  let i = index;" class="element-5 mb-4">
+
+                                <img id="{{item.id}}" class="hvr-float" src="{{item.image}}" alt="" width="100%" (click)="toggleClass($event,'highlight',item.id, item.name)">
+
+                                <p class="text-center" style="margin: 0px;">
+                                    {{ item.side=='O' ? 'Hàm trên' : item.side=='U' ? 'Hàm dưới' : item.side=='B' ? 'Hai hàm' : item.side+item.number }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <textarea name="" id="" style="width: 100%;" rows="2" placeholder="Chẩn đoán..." #note></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                                <label class="col-12" style="padding-left: 0px;">Điều trị</label>
+                                <div class="col-12" style="padding: 0px;">
+                                    <select style="width: 100%;" (change)="filterService($event.target.value)">
+                                        <option *ngFor="let item of Category" [value]="item.id">{{item.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                                <label class="col-12" style="padding-left: 0px;">Dịch vụ</label>
+                                <div class="col-12" style="padding: 0px;">
+                                    <!-- <select style="width: 100%;" (change)="onSelectedService($event.target.value)">
+                                        <option *ngFor="let item of Service" [value]="item.id" (change)="testfunction(item.id)">{{item.name}}</option>
+                                    </select> -->
+                                    <select style="width: 100%;" (change)="onSelectedService($event.target.value)" #service>
+                                        <option *ngFor="let item of Service" value="{{item.id}} {{item.unit}}">
+                                            {{item.name}} - {{ item.cost}}/{{ item.unit}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- <div class="col-10 mt-3 text-right" style="padding-right:0px;">
+                                    <button id="btnsave" type="button" class="btn btn-danger"
+                                        (click)="onDiganosis(note.value,service.value)" disabled>Xem lại</button>
+                                </div> -->
+                                <div class="col-12 mt-3 text-right pr-5">
+                                    <button id="btnsave" type="button" class="btn btn-primary" (click)="onDiganosis(note.value,service.value)" disabled>Lưu dịch vụ</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <!-- <input type="checkbox" class="option-input checkbox"/> <span>Hẹn tái khám</span> -->
+                                <label class="cls-label"><input type="checkbox" class="cls-input option-input checkbox"
+                                        (change)="onEnableReExam()" />
+                                    Hẹn tái khám</label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" *ngIf="EnableReExam == true;">
+                            <div class="col-lg-4 col-sm-12 col-md-4 col-xs-12">
+                                <div>
+                                    <label for="">Ngày khám</label>
+                                </div>
+                                <input type="date" style="width: 100%;" #date>
+                            </div>
+                            <div class="col-lg-3 col-sm-12 col-md-3 col-xs-12">
+                                <div>
+                                    <label for="">Giờ</label>
+                                </div>
+                                <input type="time" style="width: 100%;" #time>
+                            </div>
+                            <div class="col-lg-5 col-sm-12 col-md-5 col-xs-12">
+                                <div>
+                                    <label for="">Nội dung</label>
+                                </div>
+                                <input type="text" style="width: 100%;" #message>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 mt-3 text-center">
+                                    <button type="button" class="btn btn-primary" (click)="onShedule(date.value,time.value,message.value)">Lưu lịch hẹn</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                            <div class="col-12 mt-3 text-center">
+                                <button type="button" class="btn btn-warning" (click)="onFinish()">Hoàn tất hồ sơ
+                                    khám</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-5">
+                                <h4 class="font-weight-bold">Danh sách chờ</h4>
+                            </div>
+                            <div class="col-7 cls-hover hvr-grow" (click)="onReversePatient()">
+                                <i class="fa fa-history fa-fw ml-3" aria-hidden="true"></i> Khôi phục
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 gray-box">
+                        <table class="table table-borderless table-hover">
+                            <tbody>
+                                <div *ngIf="Patient == null ; else elseNULL">
+                                    <tr>
+                                        Không có khách hàng nào
+                                    </tr>
+                                </div>
+                                <ng-template #elseNULL>
+                                    <tr *ngFor="let item of Patient; let i=index" class="tr-hover">
+                                        <td data-toggle="tooltip" data-html="true" title="{{item.note}}">{{i+1}}. {{item.patient.name}}
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success" (click)="getCurrentPatient(item.id,item.patient.name)">Tiếp
+                                                nhận</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger" (click)="onNextPatient(item.id)">Bỏ qua</button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 gray-box">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr *ngFor="let item of Diagnosis; let i = index" style="height: 20px;">
+                                        <td class="cls-padding">{{i+1}}</td>
+                                        <td class="cls-padding">{{item.service.name}}</td>
+                                        <td class="cls-padding">{{item.cost}}</td>
+                                        <td class="cls-padding cls-img hvr-pop">
+                                            <img src="assets/img/icons8-delete-64.png" height="30px" alt="" (click)="deleteDiagnosis(item.id)">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <div class="row menubar-3">
+                    <div class="col-12">
+                        <h4 class="box-title">Hồ sơ: {{Customer.name}}</h4>
+                        <!-- <div class="row">
+                            <div class="col-3">
+                                <h3 class="box-title">Email: {{Customer.email ? Customer.email : 'Chưa có'}}</h3>
+                            </div>
+                            <div class="col">
+                                <h3 class="box-title">SĐT: {{Customer.phone}}</h3>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã phiếu khám</th>
+                                <th>Nội dung khám</th>
+                                <th>Bác sĩ khám</th>
+                                <th>Ảnh theo dõi</th>
+                                <th>Mã sơ sơ</th>
+                                <th>Chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of Examination | paginate: {
+                                itemsPerPage: 10,
+                                currentPage: _p,
+                                totalItems: _total }; let i=index">
+
+                                <td>EXAM{{10000+item.id}}</td>
+                                <td>{{item.note}}</td>
+                                <td>{{item.docter.name}}</td>
+                                <td *ngIf="item.examination_in_photo.length > 0;else noneImage">
+                                    <img  *ngFor="let img of item.examination_in_photo" src="{{img.image}}"
+                                        height="50px" width="50px" lightbox />
+                                </td>
+                                <ng-template #noneImage>
+                                    <td>
+                                        <p><i>Chưa có ảnh được tải lên</i></p>
+                                    </td>
+                                </ng-template>
+                                <td>ERS{{10000+item.examresult.id}}</td>
+                                <td style="cursor: pointer;">
+                                    <div class="hvr-forward">
+                                        <a (click)="getDetail(item.id,i)" data-toggle="modal"
+                                            data-target="#modalExamination">
+                                            <i class="fa fa-mail-forward"></i>Xem chi tiết<span
+                                                class="text-muted"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                        </div>
+                        <div class="col-sm-5 text-right">
+                        </div>
+                        <div class="col-sm-1 text-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalExamination" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Mã phiếu khám: EXAM{{10000+ExamDetail.id}}
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    Khách hàng: {{Customer.name}}
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    Bác sĩ khám: {{Doctor.name}}
+                                </div>
+                            </div>
+
+                            <div class="row text-center">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <th>STT</th>
+                                                <th>Dịch vụ</th>
+                                                <th>Đơn giá</th>
+                                                <th>Số lượng</th>
+                                                <th>Thành tiền</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of Diagnosis; let i=index">
+                                                    <td>{{i+1}}</td>
+                                                    <td>{{item.service.name}}</td>
+                                                    <td>{{item.cost}}</td>
+                                                    <td>{{item.cost/item.service_cost}}</td>
+                                                    <td>{{item.cost-item.discount}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
