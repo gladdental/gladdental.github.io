@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <h3 class="box-title">Basic Table</h3>
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                    <button type="button" class="btn btn-success" style="width: 20%;" data-toggle="modal" data-target="#addtreatment">Thêm</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng</th>
+                            <th>Email</th>
+                            <th>SĐT</th>
+                            <th>Thời gian</th>
+                            <th>Ghi chú</th>
+                            <th>Tệp đính kèm</th>
+                            <th>Tùy chọn</th>
+                            <!-- <th>Thời gian</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of registration | paginate: {
+                            itemsPerPage: 10,
+                            currentPage: _p,
+                            totalItems: _total }; let i=index">
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{(_p-1)*10+i+1}}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.name }}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.email }}</td>
+                            <td data-toggle="modal" data-target="#detailcustomer">
+                                {{ item.phone }}</td>
+                            <td> {{item.date }} {{ item.time}} </td>
+                            <td> {{item.message}}</td>
+                            <td *ngIf="item.attachment; else noneAttachment">
+                                <video *ngIf="checkFile(item.attachment); else typeImage" height="70px" controls>
+                                    <source src="{{item.attachment}}" type="video/mp4">
+                                    <!-- <source src="mov_bbb.ogg" type="video/ogg">
+                                    Your browser does not support HTML5 video. -->
+                                </video>
+                                <ng-template #typeImage>
+                                    <img src="{{item.attachment}}" height="70px">
+                                </ng-template>
+                            </td>
+                            <ng-template #noneAttachment>
+                                <td>Không có</td>
+                                <!-- <td>
+                                    <img src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t31.0-8/27368325_1023340551150035_7965909782022952379_o.jpg?_nc_cat=101&_nc_sid=05277f&_nc_ohc=Zrik9dbaFs0AX-yolo-&_nc_ht=scontent.fsgn2-4.fna&oh=ed53947fe129127f7c4e6733120eeea4&oe=5E8D74F2"
+                                    height="10%"    
+                                    lightbox />
+                                </td> -->
+                            </ng-template>
+                            <td>
+                                <button type="button" class="btn btn-warning" (click)="onApproveRegister(item.id)">Duyệt</button>
+                                <button type="button" class="btn btn-danger" (click)="onDelete(item.id)">Xóa</button>
+                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addexamination">Chỉnh sửa</button> -->
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <pagination-controls></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

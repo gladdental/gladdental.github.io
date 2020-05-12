@@ -1,0 +1,138 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2">
+                    <h3 class="box-title">Lịch khám</h3>
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-6 col-lg-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" (change)="changeOption(true)">
+                        <label class="form-check-label" for="inlineRadio1">Hôm nay</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" (change)="changeOption(false)" checked>
+                        <label class="form-check-label" for="inlineRadio2">Tất cả</label>
+                    </div>
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                    <button type="button" class="btn btn-success" style="width: 20%;" data-toggle="modal" data-target="#addtreatment">Thêm</button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Khách hàng</th>
+                            <th>Email</th>
+                            <th>SĐT</th>
+                            <th>Thời gian</th>
+                            <th>Tin nhắn</th>
+                            <th>Ghi chú</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of Schedule | paginate: {
+                            itemsPerPage: 10,
+                            currentPage: _p,
+                            totalItems: _total }; let i=index">
+                            <td>
+                                {{(_p-1)*10+i+1}}
+                                <!-- {{item.id}} -->
+                            </td>
+                            <td>
+                                {{ item.is_reexam ? item.pre_examination.patient.name : item.name }}</td>
+                            <td>
+                                {{ item.is_reexam ? item.pre_examination.patient.email : item.email }}</td>
+                            <td>
+                                {{ item.is_reexam ? item.pre_examination.patient.phone : item.phone }}</td>
+                            <td> {{item.date }} {{ item.time}} </td>
+                            <td> {{ item.is_reexam ? item.detail : item.message}}</td>
+                            <td> {{item.note}} </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalSchedule" (click)="getScheduleDetail(item.id,i)">Cập
+                                    nhật</button>
+                                <button type="button" class="btn btn-danger" (click)="deleteSchedule(item.id)">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="ModalSchedule" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-2">
+                    <h4 class="modal-title">
+                        Thông tin
+                    </h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div class="form-group">
+                                <label for="">Khách hàng</label>
+                                <input type="text" class="form-control" value="{{ScheduleDetail.name}}" #name>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Email</label>
+                                <input type="text" class="form-control" [value]="ScheduleDetail.email" #email>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">SĐT</label>
+                                <input type="text" class="form-control" [value]="ScheduleDetail.phone" #phone>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="">Ngày</label>
+                                        <input type="date" class="form-control" [value]="ScheduleDetail.date" (input)="onPickDate($event.target.value)" #date>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="font-weight-bold" for="email">Giờ</label>
+                                        <select class="form-control" #time>
+                                            <option [value]="ScheduleDetail.time" selected>{{ScheduleDetail.time}}</option>
+                                            <option *ngFor="let item of listFreeTime" value="{{item}}">{{item}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Ghi chú</label>
+                                <input type="text" class="form-control" [value]="ScheduleDetail.note" #note>
+                            </div>
+
+                            <button type="button" class="btn btn-md btn-danger" data-dismiss="modal" (click)="onUpdateSchedule(name.value,email.value,phone.value,date.value,time.value,note.value)">Cập nhật</button>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
