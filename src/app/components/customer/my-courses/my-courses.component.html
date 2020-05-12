@@ -1,0 +1,47 @@
+<app-header></app-header>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+            <br>
+            <select class="form-control" [ngStyle]="{'width': '30%'}" (change)="onChange($event.target.value)">
+                <option value="0">All</option>
+                <option value="1">Pending Courses</option>
+                <option value="2">Approved Courses</option>
+                <option value="3">Registered Courses</option>
+            </select>
+            <br>
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Course</th>
+                        <th>Approval</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of showedCourses; let i=index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ item.course_id.name }}</td>
+                        <td>{{ item.isActive }}</td>
+                        <td>{{ item.status }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+        </div>
+    </div>
+
+</div>
+
+<app-footer></app-footer>

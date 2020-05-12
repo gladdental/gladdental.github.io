@@ -1,0 +1,67 @@
+<br>
+<div class="container">
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">All Classes:</h3>
+        </div>
+        <div class="panel-body">
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Course</th>
+                        <th>Subject</th>
+                        <th>Teacher</th>
+                        <th>Student</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="haveClass; else elseTemplate">
+                        <tr *ngFor="let item of classes">
+                            <!--  [routerLink]="[ '/admin/classes', item.id ]" -->
+                            <td>{{ item.id }}</td>
+                            <td>{{ item.studyprogram.course_id.program_id.name }}</td>
+                            <td>{{ item.subject.name }}</td>
+                            <td>
+                                <p *ngFor="let i of item.subject.teacher_id">
+                                    {{ i.sub_id }}
+                                </p>
+                            </td>
+                            <td>{{ item.studyprogram.student_id.sub_id }}</td>
+                            <td>
+                                <form *ngIf="!isAdmin">
+                                    <input type="number" value="{{ item.score ? item.score : 0 }}" min="0" max="10" #score onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 || event.keyCode === 190 || event.keyCode === 110 || event.keyCode === 188 ? true : !isNaN(Number(event.key))">&nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-primary" (click)="enterScore(item.id, score.value)">Submit</button>
+                                </form>
+                                <label *ngIf="isAdmin">
+                                            {{ item.score ? item.score : 'Not entered' }}
+                                </label>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        <tr>
+                            <td colspan="5">
+                                <div class="panel panel-danger">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">No class found!</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        It is because you are not teaching any class!
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <span class="label label-warning"></span>
+                    </ng-template>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+</div>

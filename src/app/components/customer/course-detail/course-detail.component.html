@@ -1,0 +1,110 @@
+<app-header></app-header>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Courses</li>
+    </ol>
+</nav>
+<!-- //breadcrumbs -->
+
+<section class="contact py-5" *ngIf="course">
+    <div class="container py-sm-3">
+        <h3 class="heading text-capitalize mb-lg-5 mb-4"> Detailed Course - <span>{{ course.program_id.name }}</span> </h3>
+        <div class="address row">
+            <div class="col-md-4 address-grid">
+                <div class="address-info">
+                    <div class="address-left text-center">
+                        <i class="fab fa-leanpub"></i>
+                    </div>
+                    <div class="address-right text-center">
+                        <!-- <h6 class="ad-info text-uppercase mb-2">Address</h6> -->
+                        <p> From {{ course.start_year }}</p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4 address-grid">
+                <div class="address-info">
+                    <div class="address-left text-center">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="address-right text-center">
+                        <!-- <h6 class="ad-info text-uppercase mb-2">Email</h6> -->
+                        <!-- <a href="mailto:example@email.com"> mail@example.com</a> -->
+                        <!-- <a href="mailto:example@email.com"> mail@example.com</a> -->
+                        <p> To {{ course.end_year }}</p>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 address-grid">
+                <div class="address-info">
+                    <div class="address-left text-center">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="address-right text-center">
+                        <!-- <h6 class="ad-info text-uppercase mb-2">Phone</h6> -->
+                        <p>Fee: {{ course.fee }}</p>
+                        <!-- <p>+1 234 567 8901</p> -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" [ngStyle]="{'width': '80%'}">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 [ngStyle]="{'background-color': '#DC3545', 'color':'white', 'padding':'5px'}">Subjects in this course:</h3>
+                </div>
+                <div class="panel-body">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr [ngStyle]="{'text-align': 'center'}">
+                                <th>Index</th>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Credit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of subjects; let i=index">
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1px'}">{{ i }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1px'}">{{ item.id }}</td>
+                                <td>{{ item.name }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1px'}">{{ item.credit }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" [ngStyle]="{'text-align': 'right'}">Total credits: {{ totalCredits }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form row py-5" [ngStyle]="{'width': '80%', 'margin':'0 auto'}">
+            <div class="col-lg-6 contact-form" [ngStyle]="{'padding-left': '15px'}">
+                <input type="button" value="Register to this course" class="btn btn-danger" (click)="register()">
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5">
+                <div class="bg-img">
+                    <div class="contact-layer">
+                        <h3 class="mb-3">Dont hesitate to contact us for any kind of information</h3>
+                        <p><i class="fas mr-2 fa-phone"></i> +12 327 8976 2334</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

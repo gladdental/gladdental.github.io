@@ -1,0 +1,118 @@
+<app-header></app-header>
+<!-- breadcrumbs -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Courses</li>
+    </ol>
+</nav>
+<!-- //breadcrumbs -->
+
+<!-- courses -->
+<section class="courses py-5">
+    <div class="container py-sm-3">
+        <h3 class="heading text-capitalize mb-lg-5 mb-4">
+            <span>All courses</span>
+        </h3>
+        <br>
+
+        <div class="row course-grids">
+            <div *ngFor="let item of courses; let i=index" [ngStyle]="{'cursor': 'pointer'}" [routerLink]="[ '/courses', item.id ]" class="col-lg-4 col-md-6">
+                <div class="card">
+                    <img class="card-img-top" src="{{ item.image }}" [ngStyle]="{'width': '100%', 'height':'232px'}">
+                    <div class="card-body">
+                        <h5 class="card-title" [ngStyle]="{'height': '40px'}">{{ item.program_id.name }}</h5>
+                        <p class="card-text mb-3">
+                            <span>From </span>{{ item.start_year }}
+                            <span>To </span>{{ item.end_year }}
+                        </p>
+
+                        <a href="#" [routerLink]="[ '/courses', item.id ]" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Join Course</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- courses -->
+
+<!-- footer -->
+
+<!-- footer -->
+<!-- Login modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase" id="exampleModalLabel1">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" class="p-3">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">User Name</label>
+                        <input type="email" class="form-control" placeholder="User Name" name="Name" id="recipient-name" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name1" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="Name" id="recipient-name1" required="">
+                    </div>
+                    <div class="right-w3l mt-4 mb-3">
+                        <input type="submit" class="form-control" value="Login">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Login modal -->
+
+<!-- Register modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase" id="exampleModalLabel1">Register Here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post" class="p-3">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="First Name" name="Name" id="recipient-name2" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Last Name" name="Name" id="recipient-name3" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Email id</label>
+                        <input type="email" class="form-control" placeholder="Email id" name="Name" id="recipient-name4" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Mobile Number</label>
+                        <input type="text" class="form-control" placeholder="Mobile Number" name="Name" id="recipient-name5" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name1" class="col-form-label">Password</label>
+                        <input type="password" class="form-control" placeholder="Password" name="Name" id="recipient-name6" required="">
+                    </div>
+                    <div class="right-w3l mt-4 mb-3">
+                        <input type="submit" class="form-control" value="Create account">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Register modal -->
+<app-footer></app-footer>

@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="index.html">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Schedules</li>
+    </ol>
+</nav>
+<!-- //breadcrumbs -->
+
+<section class="contact py-5">
+    <div class="container py-sm-3">
+        <!-- <h3 class="heading text-capitalize mb-lg-5 mb-4"> Detailed Course - <span>{{ course.program_id.name }}</span> </h3> -->
+        <div class="container" [ngStyle]="{'width': '80%'}">
+
+            <select class="custom-select" (change)="changeSelect($event.target.value)">
+                    <option *ngFor="let item of courses; let i=index" value={{item.id}}>{{ item.name }}</option>
+                </select>
+
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 [ngStyle]="{'background-color': '#DC3545', 'color':'white', 'padding':'5px'}">Subjects in this course:</h3>
+                </div>
+                <div class="panel-body">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr [ngStyle]="{'text-align': 'center'}">
+                                <th>Day</th>
+                                <th>Subject</th>
+                                <th>Time</th>
+                                <th>Room</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of schedule; let i=index">
+                                <td [ngStyle]="{'text-align': 'center', 'width':'100px'}">{{ item.day }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1000px'}">{{ item.subject.name }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'300px'}">{{ item.time_start }} - {{ item.time_end }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'100px'}">{{ item.room }}</td>
+                            </tr>
+                            <!-- <tr *ngFor="let item of subjects; let i=index">
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1px'}">{{ i }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1px'}">{{ item.id }}</td>
+                                <td>{{ item.name }}</td>
+                                <td [ngStyle]="{'text-align': 'center', 'width':'1px'}">{{ item.credit }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" [ngStyle]="{'text-align': 'right'}">Total credits: {{ totalCredits }}</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -1,0 +1,40 @@
+<app-header></app-header>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm)">
+                        <legend [ngStyle]="{'text-align': 'center'}">Login</legend>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" formControlName="username" placeholder="Username">
+                            <span class="label" *ngIf="(loginForm.controls.username.dirty && loginForm.controls.username.errors?.required) || (submitted && loginForm.controls.username.errors?.required)" [ngStyle]="{'color': 'red'}"><i class="fas fa-exclamation-circle"></i> Enter username</span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password">
+                            <span class="label" *ngIf="(loginForm.controls.password.dirty && loginForm.controls.password.errors?.required) || (submitted && loginForm.controls.password.errors?.required)" [ngStyle]="{'color': 'red'}"><i class="fas fa-exclamation-circle"></i> Enter password</span>
+                        </div>
+
+                        <div [ngStyle]="{'text-align': 'center'}">
+                            <button type="submit" class="btn btn-primary">Sign in</button> &nbsp;
+                            <button type="reset" class="btn btn-default">Reset</button>
+                        </div>
+                        <br>
+                        <div [ngStyle]="{'text-align': 'center'}">
+                            <a [routerLink]="[ '/signup' ]">Sign up</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+        </div>
+    </div>
+</div>
+<br>

@@ -1,0 +1,158 @@
+<header>
+    <div class="container">
+        <!-- top header -->
+        <section class="row top_header pt-3">
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6 buttons" *ngIf="username">
+                <h5 [ngStyle]="{'color': 'cyan', 'display':'inline'}">Welcomeeee {{ username }}</h5>
+                &nbsp;
+                <button type="button" class="btn btn-info1 btn-lg-block w3ls-btn1 px-4 text-capitalize" data-toggle="modal" aria-pressed="false" data-target="#exampleModal1" (click)="logout()">
+                                Logout
+                </button>
+            </div>
+            <div class="col-lg-6 buttons" *ngIf="!username">
+                <p><i class="fas mr-1 fa-phone"></i> +12 8976 2334</p>
+                <button type="button" class="btn btn-info btn-lg-block w3ls-btn px-4 text-capitalize mr-2" data-toggle="modal" aria-pressed="false" data-target="#exampleModal" [routerLink]="[ '/login' ]">
+						Login
+					</button>
+                <button type="button" class="btn btn-info1 btn-lg-block w3ls-btn1 px-4 text-capitalize" data-toggle="modal" aria-pressed="false" data-target="#exampleModal1" [routerLink]="[ '/signup' ]">
+						Register
+					</button>
+            </div>
+        </section>
+        <!-- top header -->
+
+        <!-- nav -->
+        <nav class="navbar navbar-expand-lg py-sm-4 py-2">
+            <!-- logo -->
+            <h1>
+                <a class="navbar-brand" href=""> <i class="fab fa-affiliatetheme"></i> Eduversity
+                </a>
+            </h1>
+            <!-- //logo -->
+            <button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+            <!-- main nav -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-lg-auto text-center">
+                    <li class="nav-item mr-lg-3">
+                        <a class="nav-link" href="">Homee
+							<span class="sr-only">(current)</span>
+						</a>
+                    </li>
+                    <li class="nav-item active mr-lg-3">
+                        <a class="nav-link" href="about.html">about</a>
+                    </li>
+                    <li class="nav-item mr-lg-3">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="dropdown nav-item mr-lg-3">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle ">
+							Pages
+							<b class="caret"></b>
+						</a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="nav-item">
+                                <a [routerLink]="[ '/course' ]" class="nav-link">Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a [routerLink]="[ '/my-courses' ]" class="nav-link">My Courses</a>
+                            </li>
+                            <li class="nav-item">
+                                <a [routerLink]="[ '/schedual' ]" class="nav-link">Schedual</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item mr-3">
+                        <a class="nav-link" href="contact.html">contact</a>
+                    </li>
+                    <li>
+                        <!-- search --->
+                        <div class="search-bar-agileits">
+                            <div class="cd-main-header">
+                                <ul class="cd-header-buttons">
+                                    <li>
+                                        <a class="cd-search-trigger" href="#cd-search"> <span></span></a>
+                                    </li>
+                                </ul>
+                                <!-- cd-header-buttons -->
+                            </div>
+                            <div id="cd-search" class="cd-search">
+                                <form action="#" method="post">
+                                    <input name="Search" type="search" placeholder="Click enter after typing...">
+                                </form>
+                            </div>
+                        </div>
+                        <!-- search --->
+
+                    </li>
+                </ul>
+            </div>
+            <!-- //main nav -->
+        </nav>
+        <!-- //nav -->
+    </div>
+</header>
+<div class="inner_banner layer" id="home">
+    <div class="container">
+        <div class="agileinfo-inner">
+            <h2 class="text-center text-white">
+            </h2>
+        </div>
+    </div>
+</div>
+
+<!-- js -->
+<script type="text/javascript" src="./../../../../assets/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="./../../../../assets/js/bootstrap.js"></script>
+<!-- Necessary-JavaScript-File-For-Bootstrap -->
+<!-- //js -->
+
+<!-- search-bar -->
+<script src="./../../../../assets/js/main.js"></script>
+<!-- //search-bar -->
+
+<!-- stats -->
+<script src="./../../../../assets/js/jquery.waypoints.min.js"></script>
+<script src="./../../../../assets/js/jquery.countup.js"></script>
+<script>
+    $('.counter').countUp();
+</script>
+<!-- //stats -->
+
+<!-- start-smoth-scrolling -->
+<script src="./../../../../assets/js/SmoothScroll.min.js"></script>
+<script type="text/javascript" src="./../../../../assets/js/move-top.js"></script>
+<script type="text/javascript" src="./../../../../assets/js/easing.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(".scroll").click(function(event) {
+            event.preventDefault();
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
+        });
+    });
+</script>
+<!-- here stars scrolling icon -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        /*
+            var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear' 
+            };
+        */
+
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+
+    });
+</script>
+<!-- //here ends scrolling icon -->
+<!-- start-smoth-scrolling -->
