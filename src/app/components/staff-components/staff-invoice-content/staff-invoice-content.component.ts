@@ -18,6 +18,7 @@ export class StaffInvoiceContentComponent implements OnInit,OnDestroy {
   _total: number;
   public Invoice : any[] = [];
   public oneInvoice = {
+    'id' : 0,
     'voucher' : null,
     'owe' : null,
     'cost' : null,

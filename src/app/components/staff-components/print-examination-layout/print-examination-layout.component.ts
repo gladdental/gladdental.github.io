@@ -15,7 +15,7 @@ export class PrintExaminationLayoutComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   public Examination = {
     'id' : 0,
-    'patient' : 'loading',
+    'patient' : null,
     'note' : 'loading'
   };
   public patient = {
