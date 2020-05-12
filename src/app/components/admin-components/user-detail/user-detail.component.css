@@ -1,0 +1,9 @@
+.cls-linktext{
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.cls-linktext:hover{
+    text-decoration: underline;
+}

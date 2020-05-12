@@ -1,0 +1,123 @@
+<div class="table-responsive">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Khách hàng</th>
+                <th>Chi phí</th>
+                <th>PT thanh toán</th>
+                <th>Voucher</th>
+                <!-- <th>Đã nhận</th> -->
+                <th>Đã thanh toán</th>
+                <th>Khác</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of Invoice | paginate: {
+                itemsPerPage: 10,
+                currentPage: _p,
+                totalItems: _total }; let i=index">
+
+                <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    <!-- {{(_p-1)*10+i+1}} -->
+                    INV{{10000+item.id}}
+                </td>
+                <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    {{ item.examination.patient.name }}</td>
+                <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    {{ item.cost }}</td>
+                <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    {{ item.payment }}</td>
+                <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    {{ item.voucher ? item.voucher.amount : 0 }}</td>
+                <!-- <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    {{ item.received }}</td> -->
+                <td (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">
+                    {{ item.paid }}</td>
+
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="detailInvoice(item.id)" data-toggle="modal" data-target="#modal-Invoice">Cập nhật</button>
+                </td>
+                <td>
+                    <a (click)="onPrintInvoice(item.id,item.examination.id)" target="_blank" style="cursor: pointer;">
+                        <span class="text-muted">In hóa đơn<i class="fa fa-pencil-square"></i></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <pagination-controls (pageChange)="changePage($event)"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+
+<div id="modal-Invoice" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <button type="button" class="btn btn-outline-info">Chi tiết hóa đơn</button>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div>
+                                <h4>Mã hóa đơn: INV{{10000+oneInvoice.id}}</h4>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Chi phí</label>
+                                <input type="text" class="form-control" #cost disabled value="{{(oneInvoice.voucher ? oneInvoice.voucher : 0)+ oneInvoice.cost}}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Giảm giá</label>
+                                <input type="text" class="form-control" #voucher disabled [value]="oneInvoice.voucher ? oneInvoice.voucher : 0">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Nợ</label>
+                                <input type="text" class="form-control" #voucher disabled [value]="oneInvoice.owe">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Thành tiền</label>
+                                <input type="text" class="form-control" #total disabled [value]="oneInvoice.cost + oneInvoice.owe + (oneInvoice.voucher ? oneInvoice.voucher : 0)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Phương thức thanh toán: {{oneInvoice.payment}}</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Đã nhận</label>
+                                <input type="number" class="form-control" [value]="oneInvoice.received" #received>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Đã trả</label>
+                                <input type="number" class="form-control" [value]="oneInvoice.paid" #paid>
+                            </div>
+                            <button type="button" class="btn btn-md btn-danger" (click)="updateInvoice(received.value, paid.value)" data-dismiss="modal">Cập nhật</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

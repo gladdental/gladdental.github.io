@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="white-box">
+            <div class="row menubar-3">
+                <div class="col-4">
+                    <h3 class="box-title">Basic Table</h3>
+                </div>
+                <div class="col-4">
+                    <pagination-controls (pageChange)="changePage($event) "></pagination-controls>
+                </div>
+                <div class="col-4">
+                </div>
+            </div>
+            <div class="table-responsive ">
+                <div class="row ">
+                    <div class="col-6 ">
+
+                    </div>
+                </div>
+                <table class="table table-hover ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Dịch vụ</th>
+                            <th>Ghi chú</th>
+                            <th>Mã phiếu khám</th>
+                            <th>Tùy chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of Diagnosis | paginate: { itemsPerPage: 10, currentPage: _p, totalItems: _total }; let i=index ">
+
+                            <td data-toggle="modal " data-target="#detailDiagnosis">
+                                {{(_p-1)*10+i+1}}</td>
+                            <td data-toggle="modal " data-target="#detailDiagnosis">
+                                {{ item.service.name }}</td>
+                            <td data-toggle="modal " data-target="#detailDiagnosis">
+                                {{ item.note }}</td>
+                            <td data-toggle="modal " data-target="#detailDiagnosis">
+                                EXAM{{ 10000+item.examination.id }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailDiagnosis" (click)="getDiagnosisDetail(item.id)">Cập nhật</button>
+                                <button type="button" class="btn btn-danger">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row ">
+                    <div class="col-sm-6 ">
+                        <pagination-controls (pageChange)="changePage($event) "></pagination-controls>
+                    </div>
+                    <div class="col-sm-5 text-right ">
+                    </div>
+                    <div class="col-sm-1 text-right ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="detailDiagnosis" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-12 text-center">
+                    <h4 class="modal-title">
+                        Chi tiết chẩn đoán
+                    </h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <label style="display: block;">Dịch vụ</label>
+                                <!-- <input type="text" class="form-control" value="{{detailDiagnosis.service.name}}" disabled> -->
+                                <select class="form-group" style="width: 50%;">
+                                    <option class="form-control" value="{{detailDiagnosis.service.id}}">{{detailDiagnosis.service.name}}</option>
+
+                                    <option class="form-control" *ngFor="let item of Services" value="{{item.id}}">{{item.name}}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Ghi chú</label>
+                                <input type="text" class="form-control" value="{{detailDiagnosis.note}}" style="width: 50%;" #note>
+                            </div>
+                            <button type="button" class="btn btn-md btn-primary" (click)="updateDiagnosis(note.value)">Lưu thông
+                                tin</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

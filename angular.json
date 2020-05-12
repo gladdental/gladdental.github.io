@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Tuongtacnguoimay": {
+    "GDentalAdminsite": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Tuongtacnguoimay",
+            "outputPath": "dist/GDentalAdminsite",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -28,7 +24,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -54,6 +53,11 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
               ]
             }
@@ -62,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "Tuongtacnguoimay:build"
+            "browserTarget": "GDentalAdminsite:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "Tuongtacnguoimay:build:production"
+              "browserTarget": "GDentalAdminsite:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Tuongtacnguoimay:build"
+            "browserTarget": "GDentalAdminsite:build"
           }
         },
         "test": {
@@ -88,7 +92,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              {
+                "input": "node_modules/@progress/kendo-theme-default/dist/all.css"
+              },
+              "src/styles.css"
             ],
             "scripts": []
           }
@@ -110,15 +117,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "Tuongtacnguoimay:serve"
+            "devServerTarget": "GDentalAdminsite:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "Tuongtacnguoimay:serve:production"
+              "devServerTarget": "GDentalAdminsite:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "Tuongtacnguoimay"
+    }
+  },
+  "defaultProject": "GDentalAdminsite"
 }
